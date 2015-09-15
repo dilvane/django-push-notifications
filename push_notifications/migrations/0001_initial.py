@@ -4,12 +4,13 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import push_notifications.fields
 from django.conf import settings
+from ..settings import PUSH_NOTIFICATIONS_SETTINGS as SETTINGS
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(SETTINGS.get('PUSH_AUTH_USER_MODEL')),
     ]
 
     operations = [
@@ -22,7 +23,7 @@ class Migration(migrations.Migration):
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='Creation date', null=True)),
                 ('device_id', models.UUIDField(help_text=b'UDID / UIDevice.identifierForVendor()', max_length=32, null=True, verbose_name='Device ID', blank=True, db_index=True)),
                 ('registration_id', models.CharField(unique=True, max_length=64, verbose_name='Registration ID')),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(blank=True, to=SETTINGS.get('PUSH_AUTH_USER_MODEL'), null=True)),
             ],
             options={
                 'verbose_name': 'APNS device',
@@ -38,7 +39,7 @@ class Migration(migrations.Migration):
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='Creation date', null=True)),
                 ('device_id', push_notifications.fields.HexIntegerField(help_text=b'ANDROID_ID / TelephonyManager.getDeviceId() (always as hex)', null=True, verbose_name='Device ID', blank=True, db_index=True)),
                 ('registration_id', models.TextField(verbose_name='Registration ID')),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(blank=True, to=SETTINGS.get('PUSH_AUTH_USER_MODEL'), null=True)),
             ],
             options={
                 'verbose_name': 'GCM device',
