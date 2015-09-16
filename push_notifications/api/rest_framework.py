@@ -37,6 +37,7 @@ class DeviceSerializerMixin(ModelSerializer):
 	class Meta:
 		fields = ("name", "registration_id", "device_id", "active", "date_created")
 		read_only_fields = ("date_created", )
+		extra_kwargs = {"active": {"default": True}}
 
 
 class APNSDeviceSerializer(ModelSerializer):
