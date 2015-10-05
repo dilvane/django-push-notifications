@@ -9,6 +9,7 @@ class Device(models.Model):
 		help_text=_("Inactive devices will not be sent notifications"))
 	user = models.ForeignKey(SETTINGS.get('AUTH_USER_MODEL'), blank=True, null=True)
 	date_created = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True, null=True)
+	language = models.CharField(max_length=255, default="en")
 
 	class Meta:
 		abstract = True
