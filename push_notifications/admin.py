@@ -8,10 +8,7 @@ User = get_user_model()
 
 
 class DeviceAdmin(admin.ModelAdmin):
-	list_display = ("__unicode__", "device_id", "user", "active", "date_created", "language")
-=======
-	list_display = ("__str__", "device_id", "user", "active", "date_created")
->>>>>>> master
+	list_display = ("__str__", "device_id", "user", "active", "date_created", "language")
 	search_fields = ("name", "device_id", "user__%s" % (User.USERNAME_FIELD))
 	list_filter = ("active", )
 	actions = ("send_message", "send_bulk_message", "prune_devices", "enable", "disable")
@@ -71,7 +68,7 @@ class GCMDeviceAdmin(DeviceAdmin):
 			return obj.device_id
 	device_id_hex.short_description = "Device ID"
 
-	list_display = ("__str__", "device_id_hex", "user", "active", "date_created")
+	list_display = ("__str__", "device_id_hex", "user", "active", "date_created", "language")
 
 admin.site.register(APNSDevice, DeviceAdmin)
 admin.site.register(GCMDevice, GCMDeviceAdmin)
